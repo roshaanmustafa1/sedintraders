@@ -95,15 +95,6 @@
           >
             Sign In to Dashboard
           </button>
-
-          <!-- Demo Helper Button -->
-          <button
-            type="button"
-            @click="fillDemoCredentials"
-            class="w-full bg-[#F5F6F8] hover:bg-gray-200 text-gray-700 font-semibold text-xs py-2.5 px-4 rounded-2xl transition-colors border border-gray-200/80"
-          >
-            Auto-Fill Admin Demo (admin / admin123)
-          </button>
         </form>
 
         <div class="text-center mt-6 pt-4 border-t border-gray-100">
@@ -2087,14 +2078,8 @@ const handleLogin = () => {
     }
     showToast(`Welcome back, ${adminProfile.name}!`)
   } else {
-    loginError.value = 'Invalid credentials. Hint: use admin / admin123'
+    loginError.value = 'Invalid username or password.'
   }
-}
-
-const fillDemoCredentials = () => {
-  loginForm.username = 'admin'
-  loginForm.password = 'admin123'
-  handleLogin()
 }
 
 const handleLogout = () => {

@@ -94,19 +94,6 @@
             >
               Contact Us
             </NuxtLink>
-            <NuxtLink
-              to="/dashboard"
-              class="ml-2 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded border border-white/20 text-white/90 hover:text-white hover:border-primary hover:bg-primary/10 transition-all inline-flex items-center gap-1.5"
-              :class="{ '!border-primary text-primary bg-primary/15': isCurrentRoute('/dashboard') }"
-            >
-              <svg class="w-3.5 h-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-              </svg>
-              <span>Dashboard</span>
-            </NuxtLink>
           </div>
 
           <!-- Right Action: "Get a free quote" button using bg-primary -->
@@ -168,20 +155,6 @@
             class="block px-3 py-2 rounded text-base font-medium text-white hover:bg-white/5 hover:text-primary"
           >
             Contact Us
-          </NuxtLink>
-          <NuxtLink
-            to="/dashboard"
-            @click="mobileMenuOpen = false"
-            class="flex items-center gap-2 px-3 py-2 rounded text-base font-medium text-white hover:bg-white/5 hover:text-primary"
-            :class="{ 'text-primary font-semibold': isCurrentRoute('/dashboard') }"
-          >
-            <svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-              <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-              <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-              <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-            </svg>
-            Dashboard
           </NuxtLink>
           <div class="pt-2 px-3">
             <NuxtLink

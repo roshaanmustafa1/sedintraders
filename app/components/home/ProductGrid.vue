@@ -55,7 +55,7 @@
         @click.self="closeModal"
       >
         <div
-          class="bg-card text-card-foreground rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative animate-in fade-in zoom-in-95 duration-200 border border-border"
+          class="bg-card text-card-foreground rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative animate-in fade-in zoom-in-95 duration-200 border border-border"
           role="dialog"
           aria-modal="true"
         >
@@ -72,11 +72,11 @@
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
             <!-- Large Product Image in Modal -->
-            <div class="bg-muted/60 rounded-xl p-6 flex items-center justify-center h-80 sm:h-96">
+            <div class="bg-muted/60 rounded-xl flex items-center justify-center h-80 sm:h-96">
               <img
                 :src="activeProduct.image"
                 :alt="activeProduct.title"
-                class="max-h-full max-w-full object-contain"
+                class="max-h-full max-w-full object-contain rounded-md"
               />
             </div>
 
@@ -98,10 +98,10 @@
                   <div
                     v-for="(spec, idx) in activeProduct.specs"
                     :key="idx"
-                    class="flex items-center justify-between text-xs"
+                    class="flex items-center justify-between text-xs gap-4"
                   >
                     <span class="text-muted-foreground font-medium">{{ spec.label }}:</span>
-                    <span class="text-card-foreground font-semibold">{{ spec.value }}</span>
+                    <span class="text-card-foreground font-semibold text-right">{{ spec.value }}</span>
                   </div>
                 </div>
               </div>

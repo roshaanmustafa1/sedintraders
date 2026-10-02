@@ -1,6 +1,6 @@
 import { N as NuxtLink } from '../virtual/entry.mjs';
 import { _ as _virtual_public__2Fimages_2Flogo_black_default, a as _virtual_public__2Fimages_2Flogo_white_default } from './_virtual_public-DPnYCqED.mjs';
-import { ref, mergeProps, withCtx, createVNode, createTextVNode, openBlock, createBlock, useSSRContext } from 'vue';
+import { ref, mergeProps, withCtx, createVNode, createTextVNode, useSSRContext } from 'vue';
 import { useRoute } from 'vue-router';
 import { ssrRenderAttrs, ssrRenderComponent, ssrRenderAttr, ssrRenderSlot } from 'vue/server-renderer';
 import 'nostics';
@@ -73,51 +73,6 @@ var _sfc_main = {
 				}),
 				_: 1
 			}, _parent));
-			_push(ssrRenderComponent(_component_NuxtLink, {
-				to: "/dashboard",
-				class: ["ml-2 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded border border-white/20 text-white/90 hover:text-white hover:border-primary hover:bg-primary/10 transition-all inline-flex items-center gap-1.5", { "!border-primary text-primary bg-primary/15": isCurrentRoute("/dashboard") }]
-			}, {
-				default: withCtx((_, _push, _parent, _scopeId) => {
-					if (_push) _push(`<svg class="w-3.5 h-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"${_scopeId}><rect x="3" y="3" width="7" height="7" rx="1"${_scopeId}></rect><rect x="14" y="3" width="7" height="7" rx="1"${_scopeId}></rect><rect x="14" y="14" width="7" height="7" rx="1"${_scopeId}></rect><rect x="3" y="14" width="7" height="7" rx="1"${_scopeId}></rect></svg><span${_scopeId}>Dashboard</span>`);
-					else return [(openBlock(), createBlock("svg", {
-						class: "w-3.5 h-3.5 text-primary",
-						viewBox: "0 0 24 24",
-						fill: "none",
-						stroke: "currentColor",
-						"stroke-width": "2"
-					}, [
-						createVNode("rect", {
-							x: "3",
-							y: "3",
-							width: "7",
-							height: "7",
-							rx: "1"
-						}),
-						createVNode("rect", {
-							x: "14",
-							y: "3",
-							width: "7",
-							height: "7",
-							rx: "1"
-						}),
-						createVNode("rect", {
-							x: "14",
-							y: "14",
-							width: "7",
-							height: "7",
-							rx: "1"
-						}),
-						createVNode("rect", {
-							x: "3",
-							y: "14",
-							width: "7",
-							height: "7",
-							rx: "1"
-						})
-					])), createVNode("span", null, "Dashboard")];
-				}),
-				_: 1
-			}, _parent));
 			_push(`</div><div class="hidden md:block">`);
 			_push(ssrRenderComponent(_component_NuxtLink, {
 				to: "/contact",
@@ -169,52 +124,6 @@ var _sfc_main = {
 					}),
 					_: 1
 				}, _parent));
-				_push(ssrRenderComponent(_component_NuxtLink, {
-					to: "/dashboard",
-					onClick: ($event) => mobileMenuOpen.value = false,
-					class: ["flex items-center gap-2 px-3 py-2 rounded text-base font-medium text-white hover:bg-white/5 hover:text-primary", { "text-primary font-semibold": isCurrentRoute("/dashboard") }]
-				}, {
-					default: withCtx((_, _push, _parent, _scopeId) => {
-						if (_push) _push(`<svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"${_scopeId}><rect x="3" y="3" width="7" height="7" rx="1"${_scopeId}></rect><rect x="14" y="3" width="7" height="7" rx="1"${_scopeId}></rect><rect x="14" y="14" width="7" height="7" rx="1"${_scopeId}></rect><rect x="3" y="14" width="7" height="7" rx="1"${_scopeId}></rect></svg> Dashboard `);
-						else return [(openBlock(), createBlock("svg", {
-							class: "w-4 h-4 text-primary",
-							viewBox: "0 0 24 24",
-							fill: "none",
-							stroke: "currentColor",
-							"stroke-width": "2"
-						}, [
-							createVNode("rect", {
-								x: "3",
-								y: "3",
-								width: "7",
-								height: "7",
-								rx: "1"
-							}),
-							createVNode("rect", {
-								x: "14",
-								y: "3",
-								width: "7",
-								height: "7",
-								rx: "1"
-							}),
-							createVNode("rect", {
-								x: "14",
-								y: "14",
-								width: "7",
-								height: "7",
-								rx: "1"
-							}),
-							createVNode("rect", {
-								x: "3",
-								y: "14",
-								width: "7",
-								height: "7",
-								rx: "1"
-							})
-						])), createTextVNode(" Dashboard ")];
-					}),
-					_: 1
-				}, _parent));
 				_push(`<div class="pt-2 px-3">`);
 				_push(ssrRenderComponent(_component_NuxtLink, {
 					to: "/contact",
@@ -243,4 +152,4 @@ _sfc_main.setup = (props, ctx) => {
 };
 
 export { _sfc_main as default };
-//# sourceMappingURL=default-QN0wOr4D.mjs.map
+//# sourceMappingURL=default-BnKO_6Nn.mjs.map
