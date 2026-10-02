@@ -1,4 +1,5 @@
-import { _ as _plugin_vue_export_helper_default, u as useHead$1, N as NuxtLink } from '../virtual/entry.mjs';
+import { u as useHead$1, N as NuxtLink } from '../virtual/entry.mjs';
+import { _ as _plugin_vue_export_helper_default } from './_plugin-vue_export-helper-BOaGB7Aw.mjs';
 import { useSSRContext, mergeProps, withCtx, createTextVNode, toDisplayString } from 'vue';
 import { ssrRenderAttrs, ssrInterpolate, ssrRenderComponent } from 'vue/server-renderer';
 import 'nostics';
@@ -82,4 +83,4 @@ _sfc_main.setup = (props, ctx) => {
 var error_404_default = /*#__PURE__*/ _plugin_vue_export_helper_default(_sfc_main, [["__scopeId", "data-v-b8cc6c10"]]);
 
 export { error_404_default as default };
-//# sourceMappingURL=error-404-zRu_VwMh.mjs.map
+//# sourceMappingURL=error-404-DzS9b7Cl.mjs.map

@@ -1,4 +1,5 @@
-import { _ as _plugin_vue_export_helper_default, u as useHead$1 } from '../virtual/entry.mjs';
+import { u as useHead$1 } from '../virtual/entry.mjs';
+import { _ as _plugin_vue_export_helper_default } from './_plugin-vue_export-helper-BOaGB7Aw.mjs';
 import { useSSRContext, mergeProps } from 'vue';
 import { ssrRenderAttrs, ssrInterpolate } from 'vue/server-renderer';
 import 'nostics';
@@ -70,4 +71,4 @@ _sfc_main.setup = (props, ctx) => {
 var error_500_default = /*#__PURE__*/ _plugin_vue_export_helper_default(_sfc_main, [["__scopeId", "data-v-f91406c7"]]);
 
 export { error_500_default as default };
-//# sourceMappingURL=error-500-BA-ElgYO.mjs.map
+//# sourceMappingURL=error-500-BR0p08vj.mjs.map

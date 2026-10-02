@@ -4,8 +4,13 @@
   </NuxtLayout>
 </template>
 
-<script>
-export default {
-  name: 'App'
-}
+<script setup>
+import { onMounted } from 'vue'
+import { useProductStore } from '~/stores/useProductStore'
+
+const productStore = useProductStore()
+
+onMounted(() => {
+  productStore.initStore()
+})
 </script>

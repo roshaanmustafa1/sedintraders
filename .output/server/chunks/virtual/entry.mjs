@@ -1,11 +1,11 @@
 import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { defineProdDiagnostics } from 'nostics';
 import { ansiFormatter } from 'nostics/formatters/ansi';
-import { getCurrentScope, ref, watchEffect, getCurrentInstance, onBeforeUnmount, onDeactivated, onActivated, createApp, provide, onErrorCaptured, onServerPrefetch, unref, createVNode, resolveDynamicComponent, shallowReactive, reactive, effectScope, hasInjectionContext, inject, defineAsyncComponent, mergeProps, toRef, shallowRef, isReadonly, defineComponent, createElementBlock, cloneVNode, h, toRaw, computed, useSSRContext, isRef, isShallow, isReactive, isVNode, createCommentVNode, withCtx, Suspense, nextTick, resolveComponent, Fragment, toValue, queuePostFlushCb } from 'vue';
-import { e as createError, $ as $fetch, o as hasProtocol, l as joinURL, p as defu, w as withQuery, q as sanitizeStatusCode, v as parseURL, f as encodePath, x as decodePath, y as parseQuery, z as isScriptProtocol, A as withTrailingSlash, B as withoutTrailingSlash } from '../_/nitro.mjs';
+import { getCurrentScope, ref, watchEffect, getCurrentInstance, onBeforeUnmount, onDeactivated, onActivated, createApp, provide, onErrorCaptured, onServerPrefetch, unref, createVNode, resolveDynamicComponent, shallowReactive, reactive, effectScope, hasInjectionContext, inject, defineAsyncComponent, mergeProps, withCtx, toRef, defineComponent, computed, shallowRef, h, isVNode, createCommentVNode, resolveComponent, isReadonly, createElementBlock, cloneVNode, toRaw, Suspense, nextTick, Fragment, useSSRContext, isRef, isShallow, isReactive, toValue, queuePostFlushCb } from 'vue';
+import { e as createError, o as defu, p as hasProtocol, l as joinURL, q as parseQuery, v as parseURL, f as encodePath, w as decodePath, x as isScriptProtocol, y as withQuery, z as withTrailingSlash, A as withoutTrailingSlash, B as sanitizeStatusCode, $ as $fetch } from '../_/nitro.mjs';
 import { i as injectHead$1, V as VueResolver, b as baseURL, h as headSymbol } from '../routes/renderer.mjs';
-import { createMemoryHistory, createRouter, START_LOCATION, useRoute, RouterView } from 'vue-router';
+import { useRoute, RouterView, START_LOCATION, createMemoryHistory, createRouter } from 'vue-router';
 import { isPlainObject } from '@vue/shared';
-import { setActivePinia, createPinia, shouldHydrate } from 'pinia';
+import { defineStore, setActivePinia, createPinia, shouldHydrate } from 'pinia';
 import { ssrRenderSuspense, ssrRenderComponent, ssrRenderVNode } from 'vue/server-renderer';
 import { walkResolver } from 'unhead/utils';
 
@@ -1148,15 +1148,24 @@ var globalMiddleware = [/* @__PURE__ */ defineNuxtRouteMiddleware(async (to) => 
 var namedMiddleware = {};
 //#endregion
 //#region virtual:nuxt:node_modules%2F.cache%2Fnuxt%2F.nuxt%2Froutes.mjs
-var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [{
-	name: "contact",
-	path: "/contact",
-	component: () => import('../build/contact-CYqS_YIA.mjs')
-}, {
-	name: "index",
-	path: "/",
-	component: () => import('../build/pages-K0pdty96.mjs')
-}];
+var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
+	{
+		name: "contact",
+		path: "/contact",
+		component: () => import('../build/contact-CS4eTJ1W.mjs')
+	},
+	{
+		name: "dashboard",
+		path: "/dashboard",
+		meta: { layout: false },
+		component: () => import('../build/dashboard-Dafr8XLq.mjs')
+	},
+	{
+		name: "index",
+		path: "/",
+		component: () => import('../build/pages-DXkx1uHJ.mjs')
+	}
+];
 //#endregion
 //#region node_modules/nuxt/dist/pages/runtime/plugins/router.js
 var plugin$2 = /* @__PURE__ */ defineNuxtPlugin({
@@ -2170,7 +2179,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Fplugins_server_default =
 ];
 //#endregion
 //#region virtual:nuxt:node_modules%2F.cache%2Fnuxt%2F.nuxt%2Flayouts.mjs
-var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Flayouts_default = { default: defineAsyncComponent(() => import('../build/default-Bg6iYsS7.mjs').then((m) => m.default || m)) };
+var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Flayouts_default = { default: defineAsyncComponent(() => import('../build/default-QN0wOr4D.mjs').then((m) => m.default || m)) };
 //#endregion
 //#region node_modules/nuxt/dist/app/components/nuxt-layout.js
 var LayoutLoader = defineComponent({
@@ -2389,33 +2398,553 @@ function normalizeSlot(slot, data) {
 	return slotContent.length === 1 ? h(slotContent[0]) : h(Fragment, void 0, slotContent);
 }
 //#endregion
-//#region \0plugin-vue:export-helper
-var _plugin_vue_export_helper_default = (sfc, props) => {
-	const target = sfc.__vccOpts || sfc;
-	for (const [key, val] of props) target[key] = val;
-	return target;
-};
+//#region app/stores/useProductStore.js
+var INITIAL_CATEGORIES = [
+	{
+		id: "all",
+		name: "All Products"
+	},
+	{
+		id: "copper-wiring",
+		name: "Copper Wiring"
+	},
+	{
+		id: "submersible",
+		name: "Submersible Pump"
+	},
+	{
+		id: "iron-cables",
+		name: "Iron Cables & Leads"
+	},
+	{
+		id: "power-cords",
+		name: "Power Cords"
+	}
+];
+var INITIAL_PRODUCTS = [
+	{
+		id: "build-customize-cables",
+		title: "Build Customize Cables",
+		category: "copper-wiring",
+		categoryLabel: "Custom Cables",
+		image: "/images/products/custom-cables.jpg",
+		shortDesc: "Custom industrial cables engineered according to client wire gauge specifications, strand thickness, custom lengths, and molded terminal ends.",
+		specs: [
+			{
+				label: "Conductor",
+				value: "100% Pure Electrolytic Copper"
+			},
+			{
+				label: "Customization",
+				value: "Gauge, Length, Terminals, Molded Plugs"
+			},
+			{
+				label: "Application",
+				value: "Industrial Machinery & Custom OEM Wiring"
+			}
+		]
+	},
+	{
+		id: "copper-35-76-blue",
+		title: "35/76 Copper",
+		category: "copper-wiring",
+		categoryLabel: "Copper Wiring",
+		image: "/images/products/copper-35-76-blue.jpg",
+		shortDesc: "Top-tier 35/76 pure copper building wire with high dielectric insulation for residential, commercial main lines, and high-amp distribution.",
+		specs: [
+			{
+				label: "Conductor",
+				value: "99.9% Pure Annealed Copper"
+			},
+			{
+				label: "Rating",
+				value: "450 / 750V Grade A PVC"
+			},
+			{
+				label: "Standard",
+				value: "Certified BSS / IEC Compliant"
+			}
+		]
+	},
+	{
+		id: "copper-35-76-red",
+		title: "35/76 Copper",
+		category: "copper-wiring",
+		categoryLabel: "Copper Wiring",
+		image: "/images/products/copper-35-76-red.jpg",
+		shortDesc: "Heavy-duty 35/76 single core building wire in high-visibility red flame-retardant sheath, engineered for maximum power efficiency and safety.",
+		specs: [
+			{
+				label: "Conductor",
+				value: "99.9% Electrolytic Copper"
+			},
+			{
+				label: "Insulation",
+				value: "Flame-Retardant Low-Smoke PVC"
+			},
+			{
+				label: "Application",
+				value: "Main breakers, ACs, and industrial sub-mains"
+			}
+		]
+	},
+	{
+		id: "submersible-pump-4",
+		title: "Submersible Pump",
+		category: "submersible",
+		categoryLabel: "Submersible Pump",
+		image: "/images/products/submersible-pump-4.jpg",
+		shortDesc: "Heavy-duty submersible motor cable designed for extreme continuous underwater conditions, agricultural tube wells, and high-head pump systems.",
+		specs: [
+			{
+				label: "Rating",
+				value: "Continuous Immersion IP68"
+			},
+			{
+				label: "Core Count",
+				value: "3-Core Water-Sealed"
+			},
+			{
+				label: "Resistance",
+				value: "Oil, Saline, and Abrasion Proof"
+			}
+		]
+	},
+	{
+		id: "submersible-pump-3",
+		title: "Submersible Pump",
+		category: "submersible",
+		categoryLabel: "Submersible Pump",
+		image: "/images/products/submersible-pump-3.jpg",
+		shortDesc: "Flat 3-core submersible pump wire with specialized waterproof compound sheath for deep borehole agricultural and municipal water extraction.",
+		specs: [
+			{
+				label: "Type",
+				value: "Flat 3-Core Flexible"
+			},
+			{
+				label: "Conductor",
+				value: "Fine Bare Copper Strands"
+			},
+			{
+				label: "Voltage",
+				value: "600 / 1100 V"
+			}
+		]
+	},
+	{
+		id: "submersible-pump-2",
+		title: "Submersible Pump",
+		category: "submersible",
+		categoryLabel: "Submersible Pump",
+		image: "/images/products/submersible-pump-2.jpg",
+		shortDesc: "Circular double-insulated submersible cable built to withstand high hydrostatic water pressure and fluctuating power supplies in deep wells.",
+		specs: [
+			{
+				label: "Outer Sheath",
+				value: "Tough Abrasion-Resistant PVC"
+			},
+			{
+				label: "Conductor",
+				value: "High Conductivity Copper Strands"
+			},
+			{
+				label: "Testing",
+				value: "Hydrostatic pressure tested"
+			}
+		]
+	},
+	{
+		id: "submersible-pump-1",
+		title: "Submersible Pump",
+		category: "submersible",
+		categoryLabel: "Submersible Pump",
+		image: "/images/products/submersible-pump-1.jpg",
+		shortDesc: "Standard certified submersible pump wire offering high flex life and low internal resistance for residential and commercial water pumps.",
+		specs: [{
+			label: "Application",
+			value: "Domestic & Agricultural Pumps"
+		}, {
+			label: "Protection",
+			value: "Water, grease and heat resistant"
+		}]
+	},
+	{
+		id: "iron-cable-3m",
+		title: "3M Iron Cable",
+		category: "iron-cables",
+		categoryLabel: "Iron Cables & Leads",
+		image: "/images/products/iron-cable-3m.jpg",
+		shortDesc: "Extended 3-meter laundry electric iron lead with heavy-duty molded plug, textile heat-resistant braiding, and flexible copper interior.",
+		specs: [
+			{
+				label: "Length",
+				value: "3.0 Meters"
+			},
+			{
+				label: "Braid",
+				value: "High-Temperature Yarn Braiding"
+			},
+			{
+				label: "Plug",
+				value: "Solid Molded Pin Terminal"
+			}
+		]
+	},
+	{
+		id: "power-cord-5",
+		title: "Power Cord",
+		category: "power-cords",
+		categoryLabel: "Power Cords",
+		image: "/images/products/power-cord-5.jpg",
+		shortDesc: "Standard industrial power cord fitted with molded safety plug and high-amperage pure copper wiring for machinery and heavy tools.",
+		specs: [
+			{
+				label: "Plug Type",
+				value: "Molded 2-Pin / 3-Pin"
+			},
+			{
+				label: "Conductor",
+				value: "100% Pure Copper Wire"
+			},
+			{
+				label: "Jacket",
+				value: "Flexible PVC Jacket"
+			}
+		]
+	},
+	{
+		id: "tape-lead",
+		title: "Tape Lead",
+		category: "iron-cables",
+		categoryLabel: "Iron Cables & Leads",
+		image: "/images/products/tape-lead.jpg",
+		shortDesc: "Flexible electric iron tape lead cable engineered for garment steamers, commercial laundry irons, and home appliances.",
+		specs: [{
+			label: "Type",
+			value: "Heat-Resistant Tape Cable Lead"
+		}, {
+			label: "Insulation",
+			value: "High Temperature Thermal Insulation"
+		}]
+	},
+	{
+		id: "power-cord-4",
+		title: "Power Cord",
+		category: "power-cords",
+		categoryLabel: "Power Cords",
+		image: "/images/products/power-cord-4.jpg",
+		shortDesc: "High-durability power supply cord engineered for office workstations, commercial equipment, monitors, and kitchen electronics.",
+		specs: [{
+			label: "Rating",
+			value: "10A / 16A 250V"
+		}, {
+			label: "Durability",
+			value: "Strain-relief molded boots"
+		}]
+	},
+	{
+		id: "power-cord-3",
+		title: "Power Cord",
+		category: "power-cords",
+		categoryLabel: "Power Cords",
+		image: "/images/products/power-cord-3.jpg",
+		shortDesc: "Precision-molded 3-pin equipment power cord ensuring stable electrical transmission and zero overheating under continuous runtimes.",
+		specs: [{
+			label: "Termination",
+			value: "Right-Angle / Straight Molded"
+		}, {
+			label: "Conductor",
+			value: "Pure Copper Strands"
+		}]
+	},
+	{
+		id: "power-cord-2",
+		title: "Power Cord",
+		category: "power-cords",
+		categoryLabel: "Power Cords",
+		image: "/images/products/power-cord-2.jpg",
+		shortDesc: "Compact 2-pin molded power cord with copper terminals for domestic electronics, audio systems, power adapters, and domestic gadgets.",
+		specs: [{
+			label: "Pin Type",
+			value: "Solid Brass Pins with Nickel Plating"
+		}, {
+			label: "Flexibility",
+			value: "High Flex Lifetime"
+		}]
+	},
+	{
+		id: "iron-cable",
+		title: "Iron Cable",
+		category: "iron-cables",
+		categoryLabel: "Iron Cables & Leads",
+		image: "/images/products/iron-cable.jpg",
+		shortDesc: "Standard electric laundry iron lead cable featuring premium yarn braiding that resists hot iron contact and prevents tangling.",
+		specs: [
+			{
+				label: "Exterior",
+				value: "Cotton Braided Protective Sleeve"
+			},
+			{
+				label: "Interior",
+				value: "Pure Copper Core"
+			},
+			{
+				label: "Use Case",
+				value: "Electric Dry Irons & Steam Irons"
+			}
+		]
+	},
+	{
+		id: "power-cord-sedin",
+		title: "Sedin Power Cord",
+		category: "power-cords",
+		categoryLabel: "Power Cords",
+		image: "/images/products/power-cord-sedin.jpg",
+		shortDesc: "Flagship Sedin branded industrial power cord with embossed Sedin seal, certified heavy copper conductors, and rugged outer jacket.",
+		specs: [{
+			label: "Brand",
+			value: "Sedin Gold Certified"
+		}, {
+			label: "Features",
+			value: "Heavy Duty Pins, Anti-Snap Strain Relief"
+		}]
+	}
+];
+var PRESET_IMAGES = [
+	{
+		label: "Copper 35/76 (Blue)",
+		url: "/images/products/copper-35-76-blue.jpg"
+	},
+	{
+		label: "Copper 35/76 (Red)",
+		url: "/images/products/copper-35-76-red.jpg"
+	},
+	{
+		label: "Custom Industrial Cables",
+		url: "/images/products/custom-cables.jpg"
+	},
+	{
+		label: "Submersible Pump Cable #1",
+		url: "/images/products/submersible-pump-1.jpg"
+	},
+	{
+		label: "Submersible Pump Cable #2",
+		url: "/images/products/submersible-pump-2.jpg"
+	},
+	{
+		label: "Submersible Pump Cable #3",
+		url: "/images/products/submersible-pump-3.jpg"
+	},
+	{
+		label: "Submersible Pump Cable #4",
+		url: "/images/products/submersible-pump-4.jpg"
+	},
+	{
+		label: "3M Electric Iron Cable",
+		url: "/images/products/iron-cable-3m.jpg"
+	},
+	{
+		label: "Standard Iron Cable",
+		url: "/images/products/iron-cable.jpg"
+	},
+	{
+		label: "Heat-Resistant Tape Lead",
+		url: "/images/products/tape-lead.jpg"
+	},
+	{
+		label: "Sedin Power Cord (Flagship)",
+		url: "/images/products/power-cord-sedin.jpg"
+	},
+	{
+		label: "Molded Power Cord #2",
+		url: "/images/products/power-cord-2.jpg"
+	},
+	{
+		label: "Molded Power Cord #3",
+		url: "/images/products/power-cord-3.jpg"
+	},
+	{
+		label: "Molded Power Cord #4",
+		url: "/images/products/power-cord-4.jpg"
+	},
+	{
+		label: "Molded Power Cord #5",
+		url: "/images/products/power-cord-5.jpg"
+	}
+];
+var useProductStore = defineStore("product", {
+	state: () => ({
+		searchQuery: "",
+		selectedCategory: "all",
+		selectedProductForModal: null,
+		isInitialized: false,
+		categories: JSON.parse(JSON.stringify(INITIAL_CATEGORIES)),
+		products: JSON.parse(JSON.stringify(INITIAL_PRODUCTS))
+	}),
+	getters: {
+		allProducts: (state) => state.products,
+		publishedProducts: (state) => state.products.filter((p) => p.status !== "draft"),
+		draftProducts: (state) => state.products.filter((p) => p.status === "draft"),
+		allCategories: (state) => state.categories,
+		manageableCategories: (state) => state.categories.filter((c) => c.id !== "all"),
+		filteredProducts: (state) => {
+			let result = state.products.filter((p) => p.status !== "draft");
+			if (state.selectedCategory !== "all") result = result.filter((p) => p.category === state.selectedCategory);
+			if (state.searchQuery && state.searchQuery.trim()) {
+				const q = state.searchQuery.toLowerCase().trim();
+				result = result.filter((p) => p.title && p.title.toLowerCase().includes(q) || p.shortDesc && p.shortDesc.toLowerCase().includes(q) || p.categoryLabel && p.categoryLabel.toLowerCase().includes(q));
+			}
+			return result;
+		},
+		getProductCountByCategory: (state) => (catId, includeDrafts = true) => {
+			const list = includeDrafts ? state.products : state.products.filter((p) => p.status !== "draft");
+			if (catId === "all") return list.length;
+			return list.filter((p) => p.category === catId).length;
+		}
+	},
+	actions: {
+		initStore() {},
+		saveToStorage() {},
+		setCategory(categoryId) {
+			this.selectedCategory = categoryId;
+		},
+		setSearchQuery(q) {
+			this.searchQuery = q;
+		},
+		openProductModal(product) {
+			this.selectedProductForModal = product;
+		},
+		closeProductModal() {
+			this.selectedProductForModal = null;
+		},
+		addProduct(productData) {
+			const generatedId = productData.id && productData.id.trim() ? productData.id.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-") : (productData.title || "product").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-") + "-" + Date.now().toString().slice(-4);
+			let categoryLabel = productData.categoryLabel;
+			if (!categoryLabel) {
+				const cat = this.categories.find((c) => c.id === productData.category);
+				categoryLabel = cat ? cat.name : "General";
+			}
+			const newProduct = {
+				id: generatedId,
+				title: productData.title.trim(),
+				category: productData.category,
+				categoryLabel,
+				image: productData.image || "/images/products/custom-cables.jpg",
+				shortDesc: productData.shortDesc ? productData.shortDesc.trim() : "",
+				specs: Array.isArray(productData.specs) ? productData.specs.filter((s) => s && s.label && s.label.trim()) : [],
+				status: productData.status || "published",
+				createdAt: (/* @__PURE__ */ new Date()).toISOString()
+			};
+			this.products.unshift(newProduct);
+			this.saveToStorage();
+			return newProduct;
+		},
+		updateProduct(id, updatedData) {
+			const index = this.products.findIndex((p) => p.id === id);
+			if (index === -1) return null;
+			let categoryLabel = updatedData.categoryLabel;
+			if (!categoryLabel && updatedData.category) {
+				const cat = this.categories.find((c) => c.id === updatedData.category);
+				categoryLabel = cat ? cat.name : this.products[index].categoryLabel;
+			}
+			this.products[index] = {
+				...this.products[index],
+				...updatedData,
+				categoryLabel: categoryLabel || this.products[index].categoryLabel,
+				specs: Array.isArray(updatedData.specs) ? updatedData.specs.filter((s) => s && s.label && s.label.trim()) : this.products[index].specs,
+				status: updatedData.status !== void 0 ? updatedData.status : this.products[index].status || "published",
+				updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+			};
+			this.saveToStorage();
+			return this.products[index];
+		},
+		deleteProduct(id) {
+			const index = this.products.findIndex((p) => p.id === id);
+			if (index !== -1) {
+				const deleted = this.products.splice(index, 1)[0];
+				this.saveToStorage();
+				return deleted;
+			}
+			return null;
+		},
+		addCategory({ name, id }) {
+			const trimmedName = name.trim();
+			const slug = id && id.trim() ? id.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-") : trimmedName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+			if (!slug || slug === "all") return null;
+			if (this.categories.some((c) => c.id === slug)) return null;
+			const newCat = {
+				id: slug,
+				name: trimmedName
+			};
+			this.categories.push(newCat);
+			this.saveToStorage();
+			return newCat;
+		},
+		updateCategory(id, { name }) {
+			if (id === "all") return null;
+			const cat = this.categories.find((c) => c.id === id);
+			if (!cat) return null;
+			cat.name = name.trim();
+			this.products.forEach((p) => {
+				if (p.category === id) p.categoryLabel = cat.name;
+			});
+			this.saveToStorage();
+			return cat;
+		},
+		deleteCategory(id) {
+			if (id === "all") return false;
+			const index = this.categories.findIndex((c) => c.id === id);
+			if (index === -1) return false;
+			this.categories.splice(index, 1);
+			const fallbackCat = this.categories.find((c) => c.id !== "all");
+			const fallbackId = fallbackCat ? fallbackCat.id : "all";
+			const fallbackName = fallbackCat ? fallbackCat.name : "General";
+			this.products.forEach((p) => {
+				if (p.category === id) {
+					p.category = fallbackId;
+					p.categoryLabel = fallbackName;
+				}
+			});
+			if (this.selectedCategory === id) this.selectedCategory = "all";
+			this.saveToStorage();
+			return true;
+		},
+		resetToDefaults() {
+			this.categories = JSON.parse(JSON.stringify(INITIAL_CATEGORIES));
+			this.products = JSON.parse(JSON.stringify(INITIAL_PRODUCTS));
+			this.selectedCategory = "all";
+			this.searchQuery = "";
+			this.saveToStorage();
+		}
+	}
+});
 //#endregion
 //#region app/app.vue
-var _sfc_main$2 = { name: "App" };
-function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
-	const _component_NuxtLayout = nuxt_layout_default;
-	const _component_NuxtPage = page_default;
-	_push(ssrRenderComponent(_component_NuxtLayout, _attrs, {
-		default: withCtx((_, _push, _parent, _scopeId) => {
-			if (_push) _push(ssrRenderComponent(_component_NuxtPage, null, null, _parent, _scopeId));
-			else return [createVNode(_component_NuxtPage)];
-		}),
-		_: 1
-	}, _parent));
-}
+var _sfc_main$2 = {
+	__name: "app",
+	__ssrInlineRender: true,
+	setup(__props) {
+		useProductStore();
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_NuxtLayout = nuxt_layout_default;
+			const _component_NuxtPage = page_default;
+			_push(ssrRenderComponent(_component_NuxtLayout, _attrs, {
+				default: withCtx((_, _push, _parent, _scopeId) => {
+					if (_push) _push(ssrRenderComponent(_component_NuxtPage, null, null, _parent, _scopeId));
+					else return [createVNode(_component_NuxtPage)];
+				}),
+				_: 1
+			}, _parent));
+		};
+	}
+};
 var _sfc_setup$2 = _sfc_main$2.setup;
 _sfc_main$2.setup = (props, ctx) => {
 	const ssrContext = useSSRContext();
 	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("app.vue");
 	return _sfc_setup$2 ? _sfc_setup$2(props, ctx) : void 0;
 };
-var app_default = /*#__PURE__*/ _plugin_vue_export_helper_default(_sfc_main$2, [["ssrRender", _sfc_ssrRender]]);
 //#endregion
 //#region node_modules/nuxt/dist/app/components/nuxt-error-page.vue
 var _sfc_main$1 = {
@@ -2429,8 +2958,8 @@ var _sfc_main$1 = {
 		const statusText = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
 		const description = _error.message || _error.toString();
 		const stack = void 0;
-		const _Error404 = defineAsyncComponent(() => import('../build/error-404-zRu_VwMh.mjs'));
-		const _Error = defineAsyncComponent(() => import('../build/error-500-BA-ElgYO.mjs'));
+		const _Error404 = defineAsyncComponent(() => import('../build/error-404-DzS9b7Cl.mjs'));
+		const _Error = defineAsyncComponent(() => import('../build/error-500-BR0p08vj.mjs'));
 		const ErrorTemplate = is404 ? _Error404 : _Error;
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(ssrRenderComponent(unref(ErrorTemplate), mergeProps({
@@ -2492,7 +3021,7 @@ var _sfc_main = {
 					else if (unref(error)) _push(ssrRenderComponent(unref(_sfc_main$1), { error: unref(error) }, null, _parent));
 					else if (unref(islandContext)) _push(ssrRenderComponent(unref(IslandRenderer), { context: unref(islandContext) }, null, _parent));
 					else if (unref(SingleRenderer)) ssrRenderVNode(_push, createVNode(resolveDynamicComponent(unref(SingleRenderer)), null, null), _parent);
-					else _push(ssrRenderComponent(unref(app_default), null, null, _parent));
+					else _push(ssrRenderComponent(unref(_sfc_main$2), null, null, _parent));
 				},
 				_: 1
 			});
@@ -2530,5 +3059,5 @@ const entry = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   default: entry_default
 }, Symbol.toStringTag, { value: 'Module' }));
 
-export { NuxtLink as N, _plugin_vue_export_helper_default as _, entry as e, useHead$1 as u };
+export { NuxtLink as N, PRESET_IMAGES as P, useProductStore as a, entry as e, useHead$1 as u };
 //# sourceMappingURL=entry.mjs.map

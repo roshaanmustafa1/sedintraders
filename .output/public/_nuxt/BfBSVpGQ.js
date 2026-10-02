@@ -1,0 +1,1 @@
+import{a as e}from"#entry";var t=e(`/images/logo-black.png`),n=e(`/images/logo-white.png`);export{t as n,n as t};
