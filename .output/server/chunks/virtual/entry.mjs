@@ -1163,7 +1163,7 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 	{
 		name: "index",
 		path: "/",
-		component: () => import('../build/pages-DXkx1uHJ.mjs')
+		component: () => import('../build/pages-BcOlBJov.mjs')
 	}
 ];
 //#endregion
@@ -2804,8 +2804,19 @@ var useProductStore = defineStore("product", {
 		}
 	},
 	actions: {
+		hydrateCategoriesFromStorage() {},
+		hydrateProductsFromStorage() {},
+		hydrateFromStorage() {
+			this.hydrateCategoriesFromStorage();
+			this.hydrateProductsFromStorage();
+		},
 		initStore() {},
-		saveToStorage() {},
+		saveProductsToStorage() {},
+		saveCategoriesToStorage() {},
+		saveToStorage() {
+			this.saveCategoriesToStorage();
+			this.saveProductsToStorage();
+		},
 		setCategory(categoryId) {
 			this.selectedCategory = categoryId;
 		},
@@ -2837,7 +2848,7 @@ var useProductStore = defineStore("product", {
 				createdAt: (/* @__PURE__ */ new Date()).toISOString()
 			};
 			this.products.unshift(newProduct);
-			this.saveToStorage();
+			this.saveProductsToStorage();
 			return newProduct;
 		},
 		updateProduct(id, updatedData) {
@@ -2856,14 +2867,14 @@ var useProductStore = defineStore("product", {
 				status: updatedData.status !== void 0 ? updatedData.status : this.products[index].status || "published",
 				updatedAt: (/* @__PURE__ */ new Date()).toISOString()
 			};
-			this.saveToStorage();
+			this.saveProductsToStorage();
 			return this.products[index];
 		},
 		deleteProduct(id) {
 			const index = this.products.findIndex((p) => p.id === id);
 			if (index !== -1) {
 				const deleted = this.products.splice(index, 1)[0];
-				this.saveToStorage();
+				this.saveProductsToStorage();
 				return deleted;
 			}
 			return null;
@@ -2878,7 +2889,7 @@ var useProductStore = defineStore("product", {
 				name: trimmedName
 			};
 			this.categories.push(newCat);
-			this.saveToStorage();
+			this.saveCategoriesToStorage();
 			return newCat;
 		},
 		updateCategory(id, { name }) {

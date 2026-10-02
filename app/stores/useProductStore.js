@@ -260,39 +260,81 @@ export const useProductStore = defineStore('product', {
   },
 
   actions: {
-    initStore() {
-      if (import.meta.client && !this.isInitialized) {
-        try {
-          const savedCategories = localStorage.getItem('sedin_categories')
-          if (savedCategories) {
-            const parsed = JSON.parse(savedCategories)
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              this.categories = parsed
-            }
+    hydrateCategoriesFromStorage() {
+      if (typeof window === 'undefined' || typeof localStorage === 'undefined') return
+      try {
+        const savedCategories = localStorage.getItem('sedin_categories')
+        if (savedCategories) {
+          const parsed = JSON.parse(savedCategories)
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            this.categories = parsed
           }
-          const savedProducts = localStorage.getItem('sedin_products')
-          if (savedProducts) {
-            const parsed = JSON.parse(savedProducts)
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              this.products = parsed
-            }
-          }
-        } catch (e) {
-          console.error('Error hydrating product store from localStorage:', e)
         }
+      } catch (e) {
+        console.error('Error hydrating categories from localStorage:', e)
+      }
+    },
+
+    hydrateProductsFromStorage() {
+      if (typeof window === 'undefined' || typeof localStorage === 'undefined') return
+      try {
+        const savedProducts = localStorage.getItem('sedin_products')
+        if (savedProducts) {
+          const parsed = JSON.parse(savedProducts)
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            this.products = parsed
+          }
+        }
+      } catch (e) {
+        console.error('Error hydrating products from localStorage:', e)
+      }
+    },
+
+    hydrateFromStorage() {
+      this.hydrateCategoriesFromStorage()
+      this.hydrateProductsFromStorage()
+    },
+
+    initStore() {
+      if (typeof window !== 'undefined' && !this.isInitialized) {
+        this.hydrateFromStorage()
+
+        // Real-time synchronization across browser tabs
+        window.addEventListener('storage', (event) => {
+          if (event.key === 'sedin_products') {
+            this.hydrateProductsFromStorage()
+          } else if (event.key === 'sedin_categories') {
+            this.hydrateCategoriesFromStorage()
+          }
+        })
+
         this.isInitialized = true
       }
     },
 
-    saveToStorage() {
-      if (import.meta.client) {
+    saveProductsToStorage() {
+      if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
         try {
-          localStorage.setItem('sedin_categories', JSON.stringify(this.categories))
           localStorage.setItem('sedin_products', JSON.stringify(this.products))
         } catch (e) {
-          console.error('Error saving product store to localStorage:', e)
+          console.error('Error saving products to localStorage:', e)
         }
       }
+    },
+
+    saveCategoriesToStorage() {
+      if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+        try {
+          localStorage.setItem('sedin_categories', JSON.stringify(this.categories))
+        } catch (e) {
+          console.error('Error saving categories to localStorage:', e)
+        }
+      }
+    },
+
+    saveToStorage() {
+      this.saveCategoriesToStorage()
+      this.saveProductsToStorage()
     },
 
     setCategory(categoryId) {
@@ -342,7 +384,7 @@ export const useProductStore = defineStore('product', {
 
       // Prepend so new products show at the top
       this.products.unshift(newProduct)
-      this.saveToStorage()
+      this.saveProductsToStorage()
       return newProduct
     },
 
@@ -367,7 +409,7 @@ export const useProductStore = defineStore('product', {
         updatedAt: new Date().toISOString()
       }
 
-      this.saveToStorage()
+      this.saveProductsToStorage()
       return this.products[index]
     },
 
@@ -375,7 +417,7 @@ export const useProductStore = defineStore('product', {
       const index = this.products.findIndex(p => p.id === id)
       if (index !== -1) {
         const deleted = this.products.splice(index, 1)[0]
-        this.saveToStorage()
+        this.saveProductsToStorage()
         return deleted
       }
       return null
@@ -399,7 +441,7 @@ export const useProductStore = defineStore('product', {
         name: trimmedName
       }
       this.categories.push(newCat)
-      this.saveToStorage()
+      this.saveCategoriesToStorage()
       return newCat
     },
 

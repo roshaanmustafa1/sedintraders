@@ -137,12 +137,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useProductStore } from '~/stores/useProductStore'
 import ProductCard from './ProductCard.vue'
 
 const productStore = useProductStore()
 const activeProduct = ref(null)
+
+onMounted(() => {
+  productStore.initStore()
+})
 
 const openModal = (product) => {
   activeProduct.value = product
